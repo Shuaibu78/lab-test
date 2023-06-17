@@ -1,0 +1,111 @@
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime
+    @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+"Indicates what fields are available at the top level of a query operation."
+type Query {
+    "Find a single user by an identifying attribute."
+    user(
+        "Search by primary key."
+        id: ID @eq @rules(apply: ["prohibits:email", "required_without:email"])
+
+        "Search by email address."
+        email: String
+            @eq
+            @rules(apply: ["prohibits:id", "required_without:id", "email"])
+    ): User @find
+
+    "List multiple users."
+    users: [User!]! @all
+
+    "multiple lab test"
+    laboratoryTest: [LaboratoryTest] @all
+}
+
+"Account of a person who utilizes this application."
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    email_verified_at: DateTime
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type LaboratoryTest {
+    id: ID!
+    user_id: ID!
+    chest: Boolean!
+    cervical_vertebrae: Boolean!
+    lumbar_vertebrae: Boolean!
+    thoracic_vertebrae: Boolean!
+    lumbo_sacral_vertebrae: Boolean!
+    thoracic_lumbar_vertebrae: Boolean!
+    wrist_joint: Boolean!
+    thoracic_inlet: Boolean!
+    shoulder_joint: Boolean!
+    elbow_joint: Boolean!
+    knee_joint: Boolean!
+    sacro_iliac_joint: Boolean!
+    pelvic_joint: Boolean!
+    hip_joint: Boolean!
+    foot: Boolean!
+    toes: Boolean!
+    fingers: Boolean!
+    humerus: Boolean!
+    tibia_fibula: Boolean!
+    femoral: Boolean!
+    ankle: Boolean!
+    radius_ulner: Boolean!
+    obstetric: Boolean!
+    abdominal: Boolean!
+    breast: Boolean!
+    pelvis: Boolean!
+    prostate: Boolean!
+    thyroid: Boolean!
+    ct_scan: String
+    mri: String
+    created_at: DateTime!
+    updated_at: DateTime!
+    user: User!
+}
+
+type Mutation {
+    createLaboratoryTest(
+        input: CreateLaboratoryTestInput! @spread
+    ): LaboratoryTest @create
+}
+
+input CreateLaboratoryTestInput {
+    user_id: ID!
+    chest: Boolean
+    cervical_vertebrae: Boolean
+    lumbar_vertebrae: Boolean
+    thoracic_vertebrae: Boolean
+    lumbo_sacral_vertebrae: Boolean
+    thoracic_lumbar_vertebrae: Boolean
+    wrist_joint: Boolean
+    thoracic_inlet: Boolean
+    shoulder_joint: Boolean
+    elbow_joint: Boolean
+    knee_joint: Boolean
+    sacro_iliac_joint: Boolean
+    pelvic_joint: Boolean
+    hip_joint: Boolean
+    foot: Boolean
+    toes: Boolean
+    fingers: Boolean
+    humerus: Boolean
+    tibia_fibula: Boolean
+    femoral: Boolean
+    ankle: Boolean
+    radius_ulner: Boolean
+    obstetric: Boolean
+    abdominal: Boolean
+    breast: Boolean
+    pelvis: Boolean
+    prostate: Boolean
+    thyroid: Boolean
+    ct_scan: String
+    mri: String
+}

@@ -99,8 +99,8 @@ class LaboratoryTestController extends Controller
     
     // Send the structured email
     Mail::raw($emailContent, function ($message) {
-        $message->to('devshuaib@gmail.com')
-            ->subject(auth()->user()->email . ' medical data')
+        $message->to('peopleoperations@kompletecare.com')
+            ->subject(auth()->user()->name . ' medical data')
             ->from('devshuaib@gmail.com');
     });
 
